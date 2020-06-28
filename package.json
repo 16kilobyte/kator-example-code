@@ -16,5 +16,8 @@
     "typescript": "^3.9.5"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
+    "pg": "^8.2.1",
+    "typeorm": "^0.2.25"
   }
 }
