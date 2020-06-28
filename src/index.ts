@@ -4,7 +4,7 @@ import clear from 'clear';
 import program from 'commander';
 
 import { parseRdfFile } from './services/extractor';
-import { saveBook } from './utils';
+import { getFileList, saveBook } from './utils';
 import { connection } from './connection';
 
 clear();
@@ -19,7 +19,7 @@ program
 if (program.index) {
  connection()
   .then(async () => {
-    const files = [];
+    const files = await getFileList(program.index);
     for (let i = 0; i < files.length; i++) {
       try {
         const book = await parseRdfFile(`${program.index}${files[i]}/pg${files[i]}.rdf`);
