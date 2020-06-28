@@ -1,0 +1,20 @@
+{
+  "name": "metadata-extractor",
+  "version": "1.0.0",
+  "description": "Gutenberg metadata extractor",
+  "main": "lib/index.js",
+  "keywords": [
+    "metadata extractor"
+  ],
+  "repository": "git+https://github:16kilobyte/kator-example-code",
+  "author": "Kator James <kator95@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "ts-node": "^8.10.2",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+  }
+}
