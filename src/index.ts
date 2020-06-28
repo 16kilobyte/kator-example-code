@@ -2,6 +2,11 @@
 
 import clear from 'clear';
 import program from 'commander';
+
+import { parseRdfFile } from './services/extractor';
+import { saveBook } from './utils';
+import { connection } from './connection';
+
 clear();
 console.log('metadata-extractor');
 
@@ -12,5 +17,17 @@ program
   .parse(process.argv);
 
 if (program.index) {
-  // Do something
+ connection()
+  .then(async () => {
+    const files = [];
+    for (let i = 0; i < files.length; i++) {
+      try {
+        const book = await parseRdfFile(`${program.index}${files[i]}/pg${files[i]}.rdf`);
+        await saveBook(book);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  })
+  .catch(console.error);
 }
