@@ -2,6 +2,7 @@
 
 import clear from 'clear';
 import program from 'commander';
+import path from 'path';
 
 import { parseRdfFile } from './services/extractor';
 import { getFileList, saveBook } from './utils';
@@ -17,17 +18,19 @@ program
   .parse(process.argv);
 
 if (program.index) {
- connection()
-  .then(async () => {
-    const files = await getFileList(program.index);
-    for (let i = 0; i < files.length; i++) {
-      try {
-        const book = await parseRdfFile(`${program.index}${files[i]}/pg${files[i]}.rdf`);
-        await saveBook(book);
-      } catch (error) {
-        console.log(error);
+  // program.index holds the directory passed as cli argument
+  connection()
+    .then(async () => {
+      const files = await getFileList(program.index);
+      for (let i = 0; i < files.length; i++) {
+        try {
+          const rdfFile = path.join(program.index, files[i], `pg${files[i]}.rdf`);
+          const book = await parseRdfFile(rdfFile);
+          await saveBook(book);
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
-  })
-  .catch(console.error);
+    })
+    .catch(console.error);
 }
